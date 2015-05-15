@@ -1,0 +1,140 @@
+set nocompatible
+filetype off
+
+" Plugins
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'            " Plugin manager
+Plugin 'bling/vim-airline'            " Status/Tab line
+Plugin 'MattesGroeger/vim-bookmarks'  " Bookmark and annotate
+Plugin 'ctrlpvim/ctrlp.vim'           " Full path fuzzy finder
+Plugin 'tpope/vim-dispatch'           " Asynchronous build and test dispatcher
+Plugin 'tpope/vim-fugitive'           " Git integration
+Plugin 'airblade/vim-gitgutter'       " Git diff, stage, revert in the gutter
+Plugin 'junegunn/goyo.vim'            " Distraction-free writing
+Plugin 'davidhalter/jedi-vim'         " Using the jedi autocompletion library
+Plugin 'junegunn/limelight.vim'       " Hyperfocus writing
+Plugin 'mhinz/vim-startify'           " A fancy start screen
+Plugin 'ervandew/supertab'            " Insert mode completions with Tab
+Plugin 'tpope/vim-surround'           " Quoting/parenthesizing made simple
+Plugin 'scrooloose/syntastic'         " Syntax checking
+Plugin 'majutsushi/tagbar'            " Display tags in a window
+
+call vundle#end()
+filetype plugin indent on
+
+" Editing
+syntax enable
+set number
+set shiftround
+set ignorecase
+set smartcase
+set autoindent
+set smartindent
+set expandtab
+set smarttab
+set softtabstop=4 tabstop=4 shiftwidth=4
+set cursorline
+set incsearch
+set hlsearch
+set title
+set ttyfast
+set laststatus=2
+set noswapfile
+
+" Key bindings
+let mapleader = ","
+let g:mapleader = ","
+
+" Use double-leader to jump to last file
+nnoremap <leader><leader> <c-^>
+
+" Tab sizes
+nnoremap <leader>2 :set softtabstop=2 tabstop=2 shiftwidth=2<CR>
+nnoremap <leader>4 :set softtabstop=4 tabstop=4 shiftwidth=4<CR>
+nnoremap <leader>8 :set softtabstop=8 tabstop=8 shiftwidth=8<CR>
+
+" Tab/Space indentation
+nnoremap <leader>e :set expandtab!<CR>
+
+" Toggle drawing of 80 chars column
+function! g:ToggleColorColumn()
+  if &colorcolumn != ''
+    setlocal colorcolumn&
+  else
+    setlocal colorcolumn=80
+  endif
+endfunction
+nnoremap <silent> <leader>l :call g:ToggleColorColumn()<CR>
+
+" Toggle list mode
+nnoremap <silent> <leader>s :set list!<CR>
+
+" Toggle tagbar
+nmap <F8> :TagbarToggle<CR>
+
+" Toggle distraction-free mode
+map <F11> :Goyo<CR>
+
+" Extensions
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
+let g:bookmark_auto_close = 1
+let g:limelight_conceal_ctermfg = 241
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:startify_change_to_vcs_root = 1
+
+" User interface
+if has('gui_running')
+  set background=light
+  set guifont=Fira\ Mono\ 10
+  set lines=40 columns=120
+  set guioptions=agimrL
+  let g:solarized_menu = 0
+else
+  set background=dark
+endif
+set listchars=nbsp:¬,eol:¶,trail:·,tab:→\ ",space:␣
+colorscheme solarized
+
+" Be silent in GUI mode
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
+" Fullscreen in distraction-free mode
+function! s:goyo_enter()
+  if has('gui_running')
+    set guioptions-=mr
+    "call system("wmctrl -ir " . v:windowid . " -b add,fullscreen,below")
+  endif
+  set nocursorline
+  " Quick paragraph switching and scrolling
+  nnoremap <C-D> })zz
+  nnoremap <C-U> {{)zz
+endfunction
+
+function! s:goyo_leave()
+  if has('gui_running')
+    "call system("wmctrl -ir " . v:windowid . " -b remove,fullscreen,below")
+  endif
+  set cursorline
+  unmap <C-D>
+  unmap <C-U>
+endfunction
+
+autocmd User GoyoEnter call <SID>goyo_enter()
+autocmd User GoyoLeave nested call <SID>goyo_leave()
+
+" Focus on paragraph in distraction-free mode
+autocmd User GoyoEnter Limelight
+autocmd User GoyoLeave Limelight!
+
+" Mail settings
+autocmd BufRead ~/.mutt/tmp/mutt* set textwidth=72 "spell
+autocmd BufNewfile,BufRead ~/.mutt/tmp/mutt*[0-9] set nobackup nowritebackup
+
