@@ -73,6 +73,9 @@ nnoremap <silent> <leader>l :call g:ToggleColorColumn()<CR>
 " Toggle list mode
 nnoremap <silent> <leader>s :set list!<CR>
 
+" Toggle paste mode
+nnoremap <silent> <leader>c :set paste!<CR>
+
 " Toggle tagbar
 nmap <F8> :TagbarToggle<CR>
 
