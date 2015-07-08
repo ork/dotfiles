@@ -22,6 +22,7 @@ Plugin 'tpope/vim-surround'           " Quoting/parenthesizing made simple
 Plugin 'scrooloose/syntastic'         " Syntax checking
 Plugin 'majutsushi/tagbar'            " Display tags in a window
 Plugin 'jmcantrell/vim-virtualenv'    " Work with Python virtual environments
+Plugin 'thinca/vim-visualstar'        " Visual selection search
 
 call vundle#end()
 filetype plugin indent on
