@@ -149,3 +149,11 @@ autocmd User GoyoLeave Limelight!
 autocmd BufRead ~/.mutt/tmp/mutt* set textwidth=72 "spell
 autocmd BufNewfile,BufRead ~/.mutt/tmp/mutt*[0-9] set nobackup nowritebackup
 
+" OCaml configuration
+if executable('opam') && executable('ocamlmerlin') && has('python')
+    let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+    execute "set rtp+=" . g:opamshare . "/merlin/vim"
+    execute "helptags " . g:opamshare . "/merlin/vim/doc"
+    let g:syntastic_ocaml_checkers = ['merlin']
+    au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
+endif
