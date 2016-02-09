@@ -15,8 +15,8 @@ Plugin 'airblade/vim-gitgutter'       " Git diff, stage, revert in the gutter
 Plugin 'junegunn/goyo.vim'            " Distraction-free writing
 Plugin 'davidhalter/jedi-vim'         " Using the jedi autocompletion library
 Plugin 'junegunn/limelight.vim'       " Hyperfocus writing
+Plugin 'darfink/vim-plist'            " Edit OSX plist files
 Plugin 'rust-lang/rust.vim'           " Rust syntax highlighting
-Plugin 'mhinz/vim-startify'           " A fancy start screen
 Plugin 'ervandew/supertab'            " Insert mode completions with Tab
 Plugin 'tpope/vim-surround'           " Quoting/parenthesizing made simple
 Plugin 'scrooloose/syntastic'         " Syntax checking
@@ -24,7 +24,12 @@ Plugin 'majutsushi/tagbar'            " Display tags in a window
 Plugin 'jmcantrell/vim-virtualenv'    " Work with Python virtual environments
 Plugin 'thinca/vim-visualstar'        " Visual selection search
 
+" Theme
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'altercation/vim-colors-solarized'
+
 call vundle#end()
+
 filetype plugin indent on
 
 " Editing
