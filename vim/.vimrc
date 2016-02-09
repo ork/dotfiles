@@ -77,6 +77,16 @@ function! g:ToggleColorColumn()
 endfunction
 nnoremap <silent> <leader>l :call g:ToggleColorColumn()<CR>
 
+" Toggle dark/light background
+function! g:ToggleBackgroundColor()
+  if &background != 'dark'
+    setlocal background=dark
+  else
+    setlocal background=light
+  endif
+endfunction
+nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
+
 " Toggle list mode
 nnoremap <silent> <leader>s :set list!<CR>
 
