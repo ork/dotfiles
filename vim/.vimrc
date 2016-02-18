@@ -15,6 +15,7 @@ Plugin 'airblade/vim-gitgutter'       " Git diff, stage, revert in the gutter
 Plugin 'junegunn/goyo.vim'            " Distraction-free writing
 Plugin 'davidhalter/jedi-vim'         " Using the jedi autocompletion library
 Plugin 'junegunn/limelight.vim'       " Hyperfocus writing
+Plugin 'def-lkb/ocp-indent-vim'       " Integration of ocp-indent for OCaml
 Plugin 'darfink/vim-plist'            " Edit OSX plist files
 Plugin 'rust-lang/rust.vim'           " Rust syntax highlighting
 Plugin 'ervandew/supertab'            " Insert mode completions with Tab
@@ -172,7 +173,6 @@ autocmd BufNewfile,BufRead ~/.mutt/tmp/mutt*[0-9] set nobackup nowritebackup
 if executable('opam') && executable('ocamlmerlin') && has('python')
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
-  execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
   execute "helptags " . g:opamshare . "/merlin/vim/doc"
   let g:syntastic_ocaml_checkers = ['merlin']
   au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
