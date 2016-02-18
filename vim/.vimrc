@@ -109,7 +109,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:startify_change_to_vcs_root = 1
 
 " User interface
 if has('gui_running')
@@ -130,23 +129,32 @@ autocmd GUIEnter * set visualbell t_vb=
 
 " Fullscreen in distraction-free mode
 function! s:goyo_enter()
-  if has('gui_running')
-    set guioptions-=mr
-    "call system("wmctrl -ir " . v:windowid . " -b add,fullscreen,below")
-  endif
   set nocursorline
   " Quick paragraph switching and scrolling
   nnoremap <C-D> })zz
   nnoremap <C-U> {{)zz
+
+  if has('gui_running')
+    set guioptions-=mr
+    "call system("wmctrl -ir " . v:windowid . " -b add,fullscreen,below")
+    set guicursor+=n:blinkon0
+    " Prevent any touchpad mistakes
+    nnoremap <Space> })zz
+    nnoremap <S-Space> {{)zz
+  endif
 endfunction
 
 function! s:goyo_leave()
-  if has('gui_running')
-    "call system("wmctrl -ir " . v:windowid . " -b remove,fullscreen,below")
-  endif
   set cursorline
   unmap <C-D>
   unmap <C-U>
+
+  if has('gui_running')
+    "call system("wmctrl -ir " . v:windowid . " -b remove,fullscreen,below")
+    set guicursor-=n:blinkon0
+    unmap <Space>
+    unmap <S-Space>
+  endif
 endfunction
 
 autocmd User GoyoEnter call <SID>goyo_enter()
@@ -164,6 +172,7 @@ autocmd BufNewfile,BufRead ~/.mutt/tmp/mutt*[0-9] set nobackup nowritebackup
 if executable('opam') && executable('ocamlmerlin') && has('python')
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
+  execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
   execute "helptags " . g:opamshare . "/merlin/vim/doc"
   let g:syntastic_ocaml_checkers = ['merlin']
   au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
