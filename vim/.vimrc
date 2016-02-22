@@ -13,6 +13,7 @@ Plugin 'tpope/vim-dispatch'           " Asynchronous build and test dispatcher
 Plugin 'tpope/vim-fugitive'           " Git integration
 Plugin 'airblade/vim-gitgutter'       " Git diff, stage, revert in the gutter
 Plugin 'junegunn/goyo.vim'            " Distraction-free writing
+Plugin 'Yggdroot/indentLine'          " Indentation level marker
 Plugin 'davidhalter/jedi-vim'         " Using the jedi autocompletion library
 Plugin 'junegunn/limelight.vim'       " Hyperfocus writing
 Plugin 'def-lkb/ocp-indent-vim'       " Integration of ocp-indent for OCaml
@@ -94,6 +95,9 @@ nnoremap <silent> <leader>s :set list!<CR>
 " Toggle paste mode
 nnoremap <silent> <leader>c :set paste!<CR>
 
+" Toggle indentation marks
+nmap <silent> <leader>i :IndentLinesToggle<CR>
+
 " Toggle tagbar
 nmap <F8> :TagbarToggle<CR>
 
@@ -110,6 +114,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:indentLine_enabled = 0
 
 " User interface
 if has('gui_running')
