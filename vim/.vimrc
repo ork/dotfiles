@@ -89,6 +89,9 @@ function! g:ToggleBackgroundColor()
 endfunction
 nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
 
+" Jump to current tag in Tagbar
+nnoremap <silent> <leader>t :TagbarShowTag<CR>
+
 " Toggle list mode
 nnoremap <silent> <leader>s :set list!<CR>
 
@@ -175,7 +178,7 @@ autocmd BufRead ~/.mutt/tmp/mutt* set textwidth=72 "spell
 autocmd BufNewfile,BufRead ~/.mutt/tmp/mutt*[0-9] set nobackup nowritebackup
 
 " OCaml configuration
-if executable('opam') && executable('ocamlmerlin') && has('python')
+if executable('opam') && executable('ocamlmerlin')
   let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
   execute "set rtp+=" . g:opamshare . "/merlin/vim"
   execute "helptags " . g:opamshare . "/merlin/vim/doc"
