@@ -58,6 +58,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+if hash brew 2>/dev/null; then
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+        . $(brew --prefix)/etc/bash_completion
+    fi
+fi
+
 # Some variables
 export EDITOR='vim'
 export PAGER='less'
