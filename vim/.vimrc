@@ -93,6 +93,9 @@ nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
 " Jump to current tag in Tagbar
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 
+" Search for tag in CtrlP
+nnoremap <silent> <leader>T :CtrlPBufTag<CR>
+
 " Toggle list mode
 nnoremap <silent> <leader>s :set list!<CR>
 
@@ -113,6 +116,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:bookmark_auto_close = 1
+let g:ctrlp_extensions = ['buffertag']
 let g:limelight_conceal_ctermfg = 241
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
