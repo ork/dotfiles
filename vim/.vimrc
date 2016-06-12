@@ -91,7 +91,7 @@ endfunction
 nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
 
 " Jump to current tag in Tagbar
-nnoremap <silent> <leader>t :TagbarShowTag<CR>
+nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 
 " Toggle list mode
 nnoremap <silent> <leader>s :set list!<CR>
