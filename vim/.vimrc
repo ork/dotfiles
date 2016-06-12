@@ -37,6 +37,7 @@ filetype plugin indent on
 
 " Editing
 syntax enable
+set autoread
 set number
 set shiftround
 set ignorecase
@@ -53,6 +54,8 @@ set title
 set ttyfast
 set laststatus=2
 set noswapfile
+set wildmenu
+set wildmode=longest:full
 
 " Key bindings
 let mapleader = ","
@@ -112,7 +115,7 @@ nmap <F8> :TagbarToggle<CR>
 map <F11> :Goyo<CR>
 
 " Extensions
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:ctrlp_cmd = 'CtrlPMixed'
