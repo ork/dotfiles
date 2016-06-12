@@ -7,7 +7,6 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'            " Plugin manager
 Plugin 'bling/vim-airline'            " Status/Tab line
-Plugin 'MattesGroeger/vim-bookmarks'  " Bookmark and annotate
 Plugin 'ctrlpvim/ctrlp.vim'           " Full path fuzzy finder
 Plugin 'tpope/vim-dispatch'           " Asynchronous build and test dispatcher
 Plugin 'tpope/vim-fugitive'           " Git integration
@@ -115,15 +114,14 @@ map <F11> :Goyo<CR>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
-let g:bookmark_auto_close = 1
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_extensions = ['buffertag', 'mixed']
+let g:indentLine_enabled = 0
 let g:limelight_conceal_ctermfg = 241
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:indentLine_enabled = 0
 
 " User interface
 if has('gui_running')
