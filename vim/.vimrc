@@ -15,6 +15,7 @@ Plugin 'junegunn/goyo.vim'            " Distraction-free writing
 Plugin 'Yggdroot/indentLine'          " Indentation level marker
 Plugin 'davidhalter/jedi-vim'         " Using the jedi autocompletion library
 Plugin 'junegunn/limelight.vim'       " Hyperfocus writing
+Plugin 'vim-utils/vim-man'            " Display and browse manual pages
 Plugin 'def-lkb/ocp-indent-vim'       " Integration of ocp-indent for OCaml
 Plugin 'darfink/vim-plist'            " Edit OSX plist files
 Plugin 'tpope/vim-rsi'                " Readline mappings in insert and command
