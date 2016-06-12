@@ -62,15 +62,40 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Apple stuff
 if hash brew 2>/dev/null; then
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        . $(brew --prefix)/etc/bash_completion
+    export HOMEBREW_PREFIX=$(brew --prefix)
+
+    if [ -f ${HOMEBREW_PREFIX}/etc/bash_completion ]; then
+        . ${HOMEBREW_PREFIX}/etc/bash_completion
+    fi
+
+    # Use GNU userland without "g" prefix to binary name
+    if [ -d "${HOMEBREW_PREFIX}/opt/coreutils" ]; then
+        export PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${PATH}"
+        export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
+    fi
+    if [ -d "${HOMEBREW_PREFIX}/opt/gnu-sed" ]; then
+        export PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin:${PATH}"
+        export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
+    fi
+    if [ -d "${HOMEBREW_PREFIX}/opt/gnu-tar" ]; then
+        export PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin:${PATH}"
+        export MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:${MANPATH}"
+    fi
+    if [ -d "${HOMEBREW_PREFIX}/opt/grep" ]; then
+        alias grep='ggrep --color=auto'
+        alias egrep='gegrep --color=auto'
+        alias fgrep='gfgrep --color=auto'
+    fi
+    if [ -d "${HOMEBREW_PREFIX}/opt/findutils" ]; then
+        export MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
+        alias find='gfind'
+        alias locate='glocate'
+        alias updatedb='gupdatedb'
+        alias xargs='gxargs'
     fi
 fi
-
-# Some variables
-export EDITOR='vim'
-export PAGER='less'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
