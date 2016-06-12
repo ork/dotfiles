@@ -1,3 +1,14 @@
+# Install Vim plugins
+function dotfiles_configure_vim {
+    local vundle_path="${HOME}/.vim/bundle/Vundle.vim"
+
+    if [ ! -d "${vundle_path}" ]; then
+        git clone https://github.com/VundleVim/Vundle.vim.git "${vundle_path}"
+    fi
+
+    vim +PluginInstall +qall
+}
+
 # Use vim plugin to read manual pages
 function __viman {
     ${1} -c  "Man ${2} ${3}" -c 'silent only'
