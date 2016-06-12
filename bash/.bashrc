@@ -97,8 +97,8 @@ if hash brew 2>/dev/null; then
     fi
 fi
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+# Commands colour support
+if hash dircolors 2>/dev/null ; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
@@ -107,14 +107,14 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+
+    if [ -f /usr/share/dircolors/dircolors.256dark ]; then
+        eval $(dircolors /usr/share/dircolors/dircolors.256dark)
+    fi
 fi
 
 # 256 colors
 [[ ! -v TMUX ]] && export TERM=xterm-256color
-
-if [ -f /usr/share/dircolors/dircolors.256dark ]; then
-    eval $(dircolors /usr/share/dircolors/dircolors.256dark)
-fi
 
 # Color configuration for less(1)
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -125,10 +125,7 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-# A load of other aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls --classify --tabsize=0 --literal --show-control-chars --human-readable --group-directories-first'
-alias lolmatrix='tr -c "[:digit:]" " " < /dev/urandom | dd cbs=$COLUMNS conv=unblock | GREP_COLOR="1;32" grep --color "[^ ]"'
-alias selfie='gst-launch-1.0 -e v4l2src num-buffers=1 ! textoverlay font-desc="Sans 30" text="Live from Pluto" shaded-background=true auto-resize=false ! jpegenc ! filesink location=/tmp/pouet.jpg'
+# Some variables
+export EDITOR='vim'
+export PAGER='less'
 

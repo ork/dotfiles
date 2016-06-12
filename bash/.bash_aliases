@@ -37,3 +37,12 @@ complete -F _man pman
 # Aliases
 alias lockscreen='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 alias dodo="osascript -e 'tell application \"System Events\" to sleep'"
+
+#
+# GENERIC STUFF
+#
+
+alias treeg='tree -a -I .git'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls --classify --tabsize=0 --literal --show-control-chars --human-readable --group-directories-first'
