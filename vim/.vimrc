@@ -97,7 +97,7 @@ nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 
 " Search for tag in CtrlP
-nnoremap <silent> <leader>T :CtrlPBufTag<CR>
+nnoremap <silent> <C-T> :CtrlPBufTag<CR>
 
 " Toggle list mode
 nnoremap <silent> <leader>s :set list!<CR>
