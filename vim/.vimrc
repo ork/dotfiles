@@ -114,6 +114,9 @@ nmap <F8> :TagbarToggle<CR>
 " Toggle distraction-free mode
 map <F11> :Goyo<CR>
 
+" Use plugin to view manual pages
+map K <plug>(Man)
+
 " Extensions
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
