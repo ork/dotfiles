@@ -1,63 +1,40 @@
-# Bash resource file
-# ------------------
-#
-# Based upon Debian's default bashrc.
-
-
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[ -z "${PS1}" ] && return
 
+# Basic shell configuration
+shopt -s checkwinsize histappend
 HISTCONTROL=ignoredups:ignorespace
-shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
-shopt -s checkwinsize
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+# Colour support valve
+if hash tput 2>/dev/null && tput setaf 1 >&/dev/null; then
+    _ENABLE_COLORS=yes
 fi
 
-force_color_prompt=yes
+# Prompt configuration
+if [ -v _ENABLE_COLORS ]; then
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    color_prompt=yes
+    # Username is displayed in red if it is root
+    if [[ $EUID -ne 0 ]]; then
+        _user_color="01;34m"
     else
-    color_prompt=
+        _user_color="01;31m"
     fi
-fi
 
-# Username is displayed in red if it is root
-if [[ $EUID -ne 0 ]]; then
-    user_color="01;34m"
+    PS1="\[\033[$_user_color\]\u\[\033[00m\]@\[\033[01;04;32m\]\h\[\033[00m\]:\[\033[01;31m\]\w\[\033[00m\] \$ "
+
+    unset _user_color
 else
-    user_color="01;31m"
+    PS1='\u@\h:\w\$ '
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[$user_color\]\u\[\033[00m\]@\[\033[01;04;32m\]\h\[\033[00m\]:\[\033[01;31m\]\w\[\033[00m\] \$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
+# Use bash completions
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+# Use custom aliases and functions
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -66,39 +43,35 @@ fi
 if hash brew 2>/dev/null; then
     export HOMEBREW_PREFIX=$(brew --prefix)
 
+    _BREW_PACKAGES=(
+        'coreutils'
+        'findutils'
+        'gnu-sed'
+        'gnu-tar'
+        'gnu-units' # Add the gnu{bin,share/man} paths
+        'grep' # Add the gnu{bin,share/man} paths
+    )
+
+    # Use GNU userland without "g" prefix to binary name
+    for _brew_package in "${_BREW_PACKAGES[@]}"; do
+        _brew_package="${HOMEBREW_PREFIX}/opt/${_brew_package}/libexec"
+
+        if [ -d "${_brew_package}" ]; then
+            export PATH="${_brew_package}/gnubin:${PATH}"
+            export MANPATH="${_brew_package}/gnuman:${MANPATH}"
+        fi
+    done
+
+    unset _BREW_PACKAGES _brew_package
+
     if [ -f ${HOMEBREW_PREFIX}/etc/bash_completion ]; then
         . ${HOMEBREW_PREFIX}/etc/bash_completion
     fi
 
-    # Use GNU userland without "g" prefix to binary name
-    if [ -d "${HOMEBREW_PREFIX}/opt/coreutils" ]; then
-        export PATH="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin:${PATH}"
-        export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
-    fi
-    if [ -d "${HOMEBREW_PREFIX}/opt/gnu-sed" ]; then
-        export PATH="${HOMEBREW_PREFIX}/opt/gnu-sed/libexec/gnubin:${PATH}"
-        export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
-    fi
-    if [ -d "${HOMEBREW_PREFIX}/opt/gnu-tar" ]; then
-        export PATH="${HOMEBREW_PREFIX}/opt/gnu-tar/libexec/gnubin:${PATH}"
-        export MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:${MANPATH}"
-    fi
-    if [ -d "${HOMEBREW_PREFIX}/opt/grep" ]; then
-        alias grep='ggrep --color=auto'
-        alias egrep='gegrep --color=auto'
-        alias fgrep='gfgrep --color=auto'
-    fi
-    if [ -d "${HOMEBREW_PREFIX}/opt/findutils" ]; then
-        export MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
-        alias find='gfind'
-        alias locate='glocate'
-        alias updatedb='gupdatedb'
-        alias xargs='gxargs'
-    fi
 fi
 
 # Commands colour support
-if hash dircolors 2>/dev/null ; then
+if [ -v _ENABLE_COLORS ] && hash dircolors 2>/dev/null ; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
@@ -113,19 +86,28 @@ if hash dircolors 2>/dev/null ; then
     fi
 fi
 
-# 256 colors
-[[ ! -v TMUX ]] && export TERM=xterm-256color
-
+# Make less(1) more friendly for non-text input files
+if hash lesspipe 2>/dev/null; then
+    eval "$(SHELL=/bin/sh lesspipe)"
+fi
 # Color configuration for less(1)
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
+if [ -v _ENABLE_COLORS ]; then
+    export LESS_TERMCAP_mb=$'\E[01;31m'
+    export LESS_TERMCAP_md=$'\E[01;31m'
+    export LESS_TERMCAP_me=$'\E[0m'
+    export LESS_TERMCAP_se=$'\E[0m'
+    export LESS_TERMCAP_so=$'\E[01;44;33m'
+    export LESS_TERMCAP_ue=$'\E[0m'
+    export LESS_TERMCAP_us=$'\E[01;32m'
+fi
+
+# Rich colour support
+if [ -v TMUX ]; then
+    export TERM=xterm-256color
+fi
 
 # Some variables
 export EDITOR='vim'
 export PAGER='less'
 
+unset _ENABLE_COLORS
