@@ -68,6 +68,7 @@ if hash brew 2>/dev/null; then
         . ${HOMEBREW_PREFIX}/etc/bash_completion
     fi
 
+    export MANPATH=$(manpath)
 fi
 
 # Commands colour support
