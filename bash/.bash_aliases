@@ -45,6 +45,16 @@ function pman {
 }
 complete -F _man pman
 
+function dotfiles_configure_brew {
+    while read line; do
+        brew tap ${line}
+    done < "${HOME}"/.local/share/brew/default_taps
+
+    while read line; do
+        brew install ${line}
+    done < "${HOME}"/.local/share/brew/default_packages
+}
+
 # Aliases
 alias lockscreen='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 alias dodo="osascript -e 'tell application \"System Events\" to sleep'"
@@ -52,6 +62,10 @@ alias dodo="osascript -e 'tell application \"System Events\" to sleep'"
 #
 # GENERIC STUFF
 #
+
+function waldo {
+    egrep --color=always "${1}|" "${2--}"
+}
 
 alias treeg='tree -a -I .git'
 alias ll='ls -alF'
