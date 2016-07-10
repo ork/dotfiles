@@ -189,6 +189,10 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
 autocmd User GoyoEnter Limelight
 autocmd User GoyoLeave Limelight!
 
+" Make fugitive splits more readable
+autocmd BufEnter *.fugitiveblame set splitbelow
+autocmd BufLeave *.fugitiveblame set nosplitbelow
+
 " Mail settings
 autocmd BufRead ~/.mutt/tmp/mutt* set textwidth=72 "spell
 autocmd BufNewfile,BufRead ~/.mutt/tmp/mutt*[0-9] set nobackup nowritebackup
