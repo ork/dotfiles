@@ -57,6 +57,11 @@ set noswapfile
 set wildmenu
 set wildmode=longest:full
 
+" Make terminal Vim great again
+set notimeout
+set ttimeout
+set ttimeoutlen=100
+
 " Key bindings
 let mapleader = ","
 let g:mapleader = ","
