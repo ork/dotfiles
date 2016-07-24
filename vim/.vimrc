@@ -46,6 +46,7 @@ set autoindent
 set smartindent
 set expandtab
 set smarttab
+set backspace=indent,eol,start
 set softtabstop=4 tabstop=4 shiftwidth=4
 set cursorline
 set incsearch
