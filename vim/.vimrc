@@ -134,6 +134,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 1
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_extensions = ['buffertag', 'mixed']
+let g:ctrlp_mruf_exclude = '(/private)?/tmp/.*'
 let g:indentLine_enabled = 0
 let g:limelight_conceal_ctermfg = 241
 let g:syntastic_always_populate_loc_list = 1
