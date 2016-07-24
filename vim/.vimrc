@@ -111,6 +111,9 @@ nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 " Search for tag in CtrlP
 nnoremap <silent> <C-T> :CtrlPBufTag<CR>
 
+" Clear search highlighting on redraw
+nnoremap <silent> <C-L> :nohlsearch<C-L>
+
 " Toggle list mode
 nnoremap <silent> <leader>s :set list!<CR>
 
