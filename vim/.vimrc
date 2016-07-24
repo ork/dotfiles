@@ -92,8 +92,14 @@ nnoremap <silent> <leader>l :call g:ToggleColorColumn()<CR>
 function! g:ToggleBackgroundColor()
   if &background != 'dark'
     setlocal background=dark
+    if has('gui_gtk2')
+      call system("xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT 'dark' -id " . v:windowid)
+    endif
   else
     setlocal background=light
+    if has('gui_gtk2')
+      call system("xprop -f _GTK_THEME_VARIANT 8u -set _GTK_THEME_VARIANT 'light' -id " . v:windowid)
+    endif
   endif
 endfunction
 nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
@@ -140,7 +146,7 @@ if has('gui_running')
   set background=light
   set guifont=Fira\ Mono\ 10
   set lines=40 columns=120
-  set guioptions=agimrL
+  set guioptions=agirL
   let g:solarized_menu = 0
 else
   set background=dark
