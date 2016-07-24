@@ -146,6 +146,9 @@ let g:syntastic_check_on_wq = 0
 if has('gui_running')
   set background=light
   set guifont=Fira\ Mono\ 10
+  if has('mac')
+    set guifont=Fira\ Mono:h12
+  endif
   set lines=40 columns=120
   set guioptions=agirL
   let g:solarized_menu = 0
