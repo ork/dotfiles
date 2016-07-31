@@ -72,12 +72,12 @@ let maplocalleader = "§"
 nnoremap <leader><leader> <c-^>
 
 " Tab sizes
-nnoremap <leader>2 :set softtabstop=2 tabstop=2 shiftwidth=2<CR>
-nnoremap <leader>4 :set softtabstop=4 tabstop=4 shiftwidth=4<CR>
-nnoremap <leader>8 :set softtabstop=8 tabstop=8 shiftwidth=8<CR>
+nnoremap <silent> <leader>2 :set softtabstop=2 tabstop=2 shiftwidth=2<CR>
+nnoremap <silent> <leader>4 :set softtabstop=4 tabstop=4 shiftwidth=4<CR>
+nnoremap <silent> <leader>8 :set softtabstop=8 tabstop=8 shiftwidth=8<CR>
 
 " Tab/Space indentation
-nnoremap <leader>e :set expandtab!<CR>
+nnoremap <silent> <leader>e :set expandtab!<CR>
 
 " Toggle drawing of 80 chars column
 function! g:ToggleColorColumn()
@@ -124,10 +124,10 @@ nnoremap <silent> <leader>c :set paste!<CR>
 nmap <silent> <leader>i :IndentLinesToggle<CR>
 
 " Toggle tagbar
-nmap <F8> :TagbarToggle<CR>
+nmap <silent> <F8> :TagbarToggle<CR>
 
 " Toggle distraction-free mode
-map <F11> :Goyo<CR>
+map <silent> <F11> :Goyo<CR>
 
 " Use plugin to view manual pages
 map K <plug>(Man)
