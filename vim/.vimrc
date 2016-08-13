@@ -219,3 +219,6 @@ if executable('opam') && executable('ocamlmerlin')
   let g:syntastic_ocaml_checkers = ['merlin']
   au FileType ocaml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
 endif
+
+" Local configuration
+source ~/.local/etc/vimrc
