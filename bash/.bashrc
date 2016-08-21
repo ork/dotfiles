@@ -9,24 +9,55 @@ HISTFILESIZE=2000
 
 # Colour support valve
 if hash tput 2>/dev/null && tput setaf 1 >&/dev/null; then
-    _ENABLE_COLORS=yes
+    [[ ! -v LET_ME_BE_DEPRESSED ]] && _ENABLE_COLORS=yes
 fi
 
-# Prompt configuration
-if [ -v _ENABLE_COLORS ]; then
+function __prompt_command {
+    local EXIT_CODE=$?
+    local P_USER P_HOST P_PAHT
+    local LAST_STATUS='' GIT_STATUS=''
+    local -A COLORS=(
+        [RESET]='\[\e[0m\]'
+        [USER]='\[\e[00;34m\]'
+        [ROOT]='\[\e[01;31m\]'
+        [HOST]='\[\e[01;04;32m\]'
+        [PAHT]='\[\e[01;31m\]'
+        [GIT]='\[\e[00;32m\]'
+        [EXIT]='\[\e[00;31m\]'
+    )
 
-    # Username is displayed in red if it is root
-    if [[ $EUID -ne 0 ]]; then
-        _user_color="01;34m"
-    else
-        _user_color="01;31m"
+    if hash __git_ps1 2>/dev/null; then
+        local GIT_PS1_SHOWDIRTYSTATE=1
+        GIT_STATUS="${COLORS[GIT]}$( __git_ps1 '(%s) ' )${COLORS[RESET]}"
     fi
 
-    PS1="\[\033[$_user_color\]\u\[\033[00m\]@\[\033[01;04;32m\]\h\[\033[00m\]:\[\033[01;31m\]\w\[\033[00m\] \$ "
+    if [[ $EXIT_CODE != 0 ]]; then
+        if [[ $EXIT_CODE < 128 ]]; then
+            LAST_STATUS="${COLORS[EXIT]}"
+        # else
+        #     # TODO Special case for ^C when no input
+        #     LAST_STATUS="[$( kill -l ${EXIT_CODE} )] "
+        fi
+    fi
 
-    unset _user_color
+    if [[ ${EUID} != 0 ]]; then
+        P_USER="${COLORS[USER]}\u${COLORS[RESET]}"
+        LAST_STATUS+='\$'
+    else
+        P_USER="${COLORS[ROOT]}\u${COLORS[RESET]}"
+        LAST_STATUS+='#'
+    fi
+
+    P_HOST="${COLORS[HOST]}\h${COLORS[RESET]}"
+    P_PAHT="${COLORS[PAHT]}\w${COLORS[RESET]}"
+
+    export PS1="${COLORS[RESET]}${P_USER}@${P_HOST}:${P_PAHT} ${GIT_STATUS}${LAST_STATUS}${COLORS[RESET]} "
+}
+
+if [[ -v _ENABLE_COLORS ]]; then
+    PROMPT_COMMAND=__prompt_command
 else
-    PS1='\u@\h:\w\$ '
+    export PS1='\u@\h:\w $ '
 fi
 
 # Use bash completions
