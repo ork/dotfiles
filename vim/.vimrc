@@ -109,7 +109,10 @@ nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 
 " Search for tag in CtrlP
-nnoremap <silent> <C-T> :CtrlPBufTag<CR>
+nnoremap <silent> <C-R> :CtrlPBufTag<CR>
+
+" Use symmetric key bindings for undo/redo
+nnoremap U <C-R>
 
 " Clear search highlighting on redraw
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
