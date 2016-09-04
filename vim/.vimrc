@@ -55,6 +55,7 @@ set title
 set ttyfast
 set laststatus=2
 set noswapfile
+set shortmess+=I
 set wildmenu
 set wildmode=longest:full
 
@@ -113,6 +114,13 @@ nnoremap <silent> <C-R> :CtrlPBufTag<CR>
 
 " Use symmetric key bindings for undo/redo
 nnoremap U <C-R>
+
+" More consistent mapping to yank until end of line
+nnoremap Y y$
+
+" Farewell Ex mode, hello macro
+nnoremap Q @q
+vnoremap Q :norm @Q<CR>
 
 " Clear search highlighting on redraw
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
