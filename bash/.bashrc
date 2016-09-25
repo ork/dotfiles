@@ -100,6 +100,9 @@ if hash brew 2>/dev/null; then
     fi
 
     export MANPATH=$(manpath)
+
+    # Prevent ^Y from stopping the running process
+    stty dsusp undef
 fi
 
 # Commands colour support
