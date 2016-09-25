@@ -101,6 +101,14 @@ if hash brew 2>/dev/null; then
 
     export MANPATH=$(manpath)
 
+    # Dont't expand paths starting by '~/'
+    function _expand {
+        return 0
+    }
+    function __expand_tilde_by_ref {
+        return 0
+    }
+
     # Prevent ^Y from stopping the running process
     stty dsusp undef
 fi
