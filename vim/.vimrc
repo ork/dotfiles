@@ -55,6 +55,7 @@ set title
 set ttyfast
 set laststatus=2
 set noswapfile
+set display+=lastline
 set shortmess+=I
 set wildmenu
 set wildmode=longest:full
