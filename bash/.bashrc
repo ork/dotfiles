@@ -31,8 +31,8 @@ function __prompt_command {
         GIT_STATUS="${COLORS[GIT]}$( __git_ps1 '(%s) ' )${COLORS[RESET]}"
     fi
 
-    if [[ $EXIT_CODE != 0 ]]; then
-        if [[ $EXIT_CODE < 128 ]]; then
+    if [[ ${EXIT_CODE} != 0 ]]; then
+        if (( ${EXIT_CODE} < 128 )); then
             LAST_STATUS="${COLORS[EXIT]}"
         # else
         #     # TODO Special case for ^C when no input
