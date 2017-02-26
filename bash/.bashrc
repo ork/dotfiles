@@ -15,20 +15,25 @@ fi
 function __prompt_command {
     local EXIT_CODE=$?
     local P_USER P_HOST P_PAHT
-    local LAST_STATUS='' GIT_STATUS=''
+    local LAST_STATUS='' GIT_STATUS='' VENV_STATUS=''
     local -A COLORS=(
         [RESET]='\[\e[0m\]'
         [USER]='\[\e[00;34m\]'
         [ROOT]='\[\e[01;31m\]'
         [HOST]='\[\e[01;04;32m\]'
         [PAHT]='\[\e[01;31m\]'
-        [GIT]='\[\e[00;32m\]'
+        [GIT]='\[\e[00;33m\]'
+        [VENV]='\[\e[00;32m\]'
         [EXIT]='\[\e[00;31m\]'
     )
 
     if hash __git_ps1 2>/dev/null; then
         local GIT_PS1_SHOWDIRTYSTATE=1
         GIT_STATUS="${COLORS[GIT]}$( __git_ps1 '(%s) ' )${COLORS[RESET]}"
+    fi
+
+    if [[ -d ${VIRTUAL_ENV} ]]; then
+        VENV_STATUS="${COLORS[VENV]}($( basename "${VIRTUAL_ENV}" ))${COLORS[RESET]} "
     fi
 
     if [[ ${EXIT_CODE} != 0 ]]; then
@@ -51,7 +56,7 @@ function __prompt_command {
     P_HOST="${COLORS[HOST]}\h${COLORS[RESET]}"
     P_PAHT="${COLORS[PAHT]}\w${COLORS[RESET]}"
 
-    export PS1="${COLORS[RESET]}${P_USER}@${P_HOST}:${P_PAHT} ${GIT_STATUS}${LAST_STATUS}${COLORS[RESET]} "
+    export PS1="${COLORS[RESET]}${P_USER}@${P_HOST}:${P_PAHT} ${VENV_STATUS}${GIT_STATUS}${LAST_STATUS}${COLORS[RESET]} "
 }
 
 if [[ -v _ENABLE_COLORS ]]; then
