@@ -59,6 +59,7 @@ set display+=lastline
 set shortmess+=I
 set wildmenu
 set wildmode=longest:full
+set nofoldenable
 
 " Make terminal Vim great again
 set notimeout
@@ -146,7 +147,7 @@ map K <plug>(Man)
 
 " Extensions
 let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#whitespace#enabled = 1
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_extensions = ['buffertag', 'mixed']
@@ -163,7 +164,7 @@ if has('gui_running')
   set background=light
   set guifont=Fira\ Mono\ 10
   if has('mac')
-    set guifont=Fira\ Mono:h12
+    set guifont=Fira\ Mono:h11
   endif
   set lines=40 columns=120
   set guioptions=agirL
