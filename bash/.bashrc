@@ -106,17 +106,40 @@ if hash brew 2>/dev/null; then
 
     export MANPATH=$(manpath)
 
-    # Dont't expand paths starting by '~/'
-    function _expand {
-        return 0
-    }
-    function __expand_tilde_by_ref {
-        return 0
-    }
-
     # Prevent ^Y from stopping the running process
     stty dsusp undef
 fi
+
+# Dont't expand paths starting by '~/'
+function _expand {
+    if ! _rl_enabled expand-tilde; then
+        return 0
+    fi
+
+    if [[ "$cur" == \~*/* ]]; then
+        eval cur=$cur;
+    else
+        if [[ "$cur" == \~* ]]; then
+            cur=${cur#\~};
+            COMPREPLY=($( compgen -P '~' -u "$cur" ));
+            [ ${#COMPREPLY[@]} -eq 1 ] && eval COMPREPLY[0]=${COMPREPLY[0]};
+            return ${#COMPREPLY[@]};
+        fi;
+    fi
+}
+function __expand_tilde_by_ref {
+    if ! _rl_enabled expand-tilde; then
+        return 0
+    fi
+
+    if [ "${!1:0:1}" = "~" ]; then
+        if [ "${!1}" != "${!1//\/}" ]; then
+            eval $1="${!1/%\/*}"/'${!1#*/}';
+        else
+            eval $1="${!1}";
+        fi;
+    fi
+}
 
 # Properly format date and time in GNU utilities,
 # and revert to POSIX behaviour if LC_TIME=POSIX

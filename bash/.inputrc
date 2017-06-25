@@ -1,9 +1,11 @@
 set completion-ignore-case on
 set completion-map-case on
+set expand-tilde off
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 set skip-completed-text on
 set colored-stats on
+set colored-completion-prefix off
 set visible-stats on
 
 set mark-directories on
