@@ -118,6 +118,10 @@ if hash brew 2>/dev/null; then
     stty dsusp undef
 fi
 
+# Properly format date and time in GNU utilities,
+# and revert to POSIX behaviour if LC_TIME=POSIX
+export TIME_STYLE=posix-long-iso
+
 # Commands colour support
 if [ -v _ENABLE_COLORS ] && hash dircolors 2>/dev/null ; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
