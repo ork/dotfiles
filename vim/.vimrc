@@ -72,6 +72,10 @@ let mapleader = ","
 let g:mapleader = ","
 let maplocalleader = "§"
 
+" Navigate through wrapped lines
+nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+
 " Use double-leader to jump to last file
 nnoremap <leader><leader> <c-^>
 
