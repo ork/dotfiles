@@ -7,6 +7,7 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'            " Plugin manager
 Plugin 'bling/vim-airline'            " Status/Tab line
+Plugin 'tpope/vim-commentary'         " Toggle comments
 Plugin 'ctrlpvim/ctrlp.vim'           " Full path fuzzy finder
 Plugin 'tpope/vim-dispatch'           " Asynchronous build and test dispatcher
 Plugin 'tpope/vim-fugitive'           " Git integration
