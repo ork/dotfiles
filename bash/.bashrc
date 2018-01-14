@@ -12,6 +12,10 @@ if hash tput 2>/dev/null && tput setaf 1 >&/dev/null; then
     [[ ! -v LET_ME_BE_DEPRESSED ]] && _ENABLE_COLORS=yes
 fi
 
+if [ -f /usr/share/git/completion/git-prompt.sh ]; then
+    source /usr/share/git/completion/git-prompt.sh
+fi
+
 function __prompt_command {
     local EXIT_CODE=$?
     local P_USER P_HOST P_PAHT
