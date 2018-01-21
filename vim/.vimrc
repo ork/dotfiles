@@ -26,6 +26,7 @@ Plugin 'ervandew/supertab'            " Insert mode completions with Tab
 Plugin 'tpope/vim-surround'           " Quoting/parenthesizing made simple
 Plugin 'scrooloose/syntastic'         " Syntax checking
 Plugin 'majutsushi/tagbar'            " Display tags in a window
+Plugin 'tpope/vim-unimpaired'         " Complementary pairs of mappings
 Plugin 'jmcantrell/vim-virtualenv'    " Work with Python virtual environments
 Plugin 'thinca/vim-visualstar'        " Visual selection search
 
