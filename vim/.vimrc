@@ -3,6 +3,7 @@ filetype off
 
 " Plugins
 set rtp+=~/.vim/bundle/Vundle.vim
+runtime! macros/matchit.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'            " Plugin manager
