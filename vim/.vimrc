@@ -56,9 +56,11 @@ set hlsearch
 set title
 set ttyfast
 set laststatus=2
+set scrolloff=1
 set noswapfile
 set display+=lastline
 set shortmess+=I
+set formatoptions+=j
 set wildmenu
 set wildmode=longest:full
 set nofoldenable
