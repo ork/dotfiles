@@ -160,6 +160,7 @@ let g:airline#extensions#whitespace#enabled = 1
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_extensions = ['buffertag', 'mixed']
 let g:ctrlp_mruf_exclude = '(/private)?/tmp/.*'
+let g:fugitive_expand_blame = 1
 let g:indentLine_enabled = 0
 let g:limelight_conceal_ctermfg = 241
 let g:syntastic_always_populate_loc_list = 1
@@ -228,6 +229,26 @@ autocmd User GoyoLeave Limelight!
 " Make fugitive splits more readable
 autocmd BufEnter *.fugitiveblame set splitbelow
 autocmd BufLeave *.fugitiveblame set nosplitbelow
+
+" Expand the GUI window for :Gblame
+let s:fugitive_blame_expanded = 0
+
+function! s:ExpandBlame() abort
+  if has('gui_running') && g:fugitive_expand_blame == 1 && s:fugitive_blame_expanded == 0
+    let &columns += 40
+    let s:fugitive_blame_expanded = 1
+  endif
+endfunction
+
+function! s:ShrinkBlame() abort
+  if has('gui_running') && g:fugitive_expand_blame == 1 && s:fugitive_blame_expanded == 1
+    let &columns -= 40
+    let s:fugitive_blame_expanded = 0
+  endif
+endfunction
+
+autocmd BufEnter *.fugitiveblame call s:ExpandBlame()
+autocmd BufWinLeave *.fugitiveblame call s:ShrinkBlame()
 
 " Mail settings
 autocmd BufRead ~/.mutt/tmp/mutt* set textwidth=72 "spell
