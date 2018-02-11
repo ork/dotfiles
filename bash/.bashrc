@@ -180,11 +180,6 @@ if [ -v _ENABLE_COLORS ]; then
     export LESS_TERMCAP_us=$'\E[01;32m'
 fi
 
-# Rich colour support
-if [ -v TMUX ]; then
-    export TERM=xterm-256color
-fi
-
 # Some variables
 export EDITOR='vim'
 export PAGER='less'
