@@ -62,6 +62,7 @@ set noswapfile
 set display+=lastline
 set shortmess+=I
 set formatoptions+=j
+set updatetime=100
 set wildmenu
 set wildmode=longest:full
 set nofoldenable
