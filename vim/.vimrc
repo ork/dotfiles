@@ -20,6 +20,7 @@ Plugin 'junegunn/limelight.vim'       " Hyperfocus writing
 Plugin 'vim-utils/vim-man'            " Display and browse manual pages
 Plugin 'def-lkb/ocp-indent-vim'       " Integration of ocp-indent for OCaml
 Plugin 'darfink/vim-plist'            " Edit OSX plist files
+Plugin 'tpope/vim-repeat'             " Enable repetition of plugin map commands
 Plugin 'tpope/vim-rsi'                " Readline mappings in insert and command
 Plugin 'rust-lang/rust.vim'           " Rust syntax highlighting
 Plugin 'ervandew/supertab'            " Insert mode completions with Tab
@@ -122,7 +123,7 @@ nnoremap <silent> <leader>b :call g:ToggleBackgroundColor()<CR>
 nnoremap <silent> <leader>t :TagbarOpenAutoClose<CR>
 
 " Search for tag in CtrlP
-nnoremap <silent> <C-R> :CtrlPBufTag<CR>
+nnoremap <silent> <C-R> :CtrlPBufTagAll<CR>
 
 " Use symmetric key bindings for undo/redo
 nnoremap U <C-R>
@@ -159,8 +160,7 @@ map K <plug>(Man)
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#whitespace#enabled = 1
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_extensions = ['buffertag', 'mixed']
+let g:ctrlp_extensions = ['buffertag']
 let g:ctrlp_mruf_exclude = '(/private)?/tmp/.*'
 let g:fugitive_expand_blame = 1
 let g:indentLine_enabled = 0
