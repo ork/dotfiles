@@ -32,7 +32,8 @@ function __prompt_command {
     )
 
     if hash __git_ps1 2>/dev/null; then
-        local GIT_PS1_SHOWDIRTYSTATE=1
+        local GIT_PS1_SHOWDIRTYSTATE=1 \
+              GIT_PS1_SHOWSTASHSTATE=1
         GIT_STATUS="${COLORS[GIT]}$( __git_ps1 '(%s) ' )${COLORS[RESET]}"
     fi
 
