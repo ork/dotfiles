@@ -185,6 +185,12 @@ else
   set background=dark
 endif
 set listchars=nbsp:¬,eol:¶,trail:·,tab:→\ ",space:␣
+
+" Integrate the always-on sign gutter
+set signcolumn=yes
+autocmd ColorScheme * highlight! link SignColumn LineNr
+
+" Victime de la mode, tel est son nom de code
 colorscheme solarized
 
 " Be silent in GUI mode
